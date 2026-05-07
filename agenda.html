@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .tarefa {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .material-symbols-outlined {
+            font-size: 22px;
+        }
+    </style>
+    <script>
+        window.onload = inicio;
+        let saida;
+
+        function inicio() {
+            let btn = document.getElementById('botao');
+            btn.addEventListener('click', mostrarTarefas);
+            saida = document.getElementById('saida');
+        }
+
+        function mostrarTarefas() {
+            let campo = document.getElementById('tarefas');
+            let texto = campo.value;
+            let linhas = texto.split('\n');
+
+            saida.innerHTML = '';
+            linhas.forEach(montaLinha);
+        }
+
+        function montaLinha(linha) {
+            if (linha.trim() === '') {
+                return;
+            }
+
+            if (linha.startsWith('.')) {
+                let tarefa = linha.replace('.', '').trim();
+                saida.innerHTML += '<p class="tarefa"><span class="material-symbols-outlined">check_box_outline_blank</span>' + tarefa + '</p>';
+            } else if (linha.startsWith('x')) {
+                let tarefa = linha.replace('x', '').trim();
+                saida.innerHTML += '<p class="tarefa"><span class="material-symbols-outlined">check_box</span>' + tarefa + '</p>';
+            } else if (linha.startsWith('-')) {
+                let tarefa = linha.replace('-', '').trim();
+                saida.innerHTML += '<p><del>' + tarefa + '</del></p>';
+            } else if (linha.startsWith('_')) {
+                let tarefa = linha.replace('_', '').trim();
+                saida.innerHTML += '<p><em>' + tarefa + '</em></p>';
+            } else {
+                saida.innerHTML += '<p>' + linha + '</p>';
+            }
+        }
+    </script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <h1>Agenda de Tarefas</h1>
+    <p>Digite uma tarefa por linha usando: ponto, x, hífen ou underline.</p>
+    <textarea id="tarefas" rows="8" cols="60">. estudar para prova
+x ir ao dentista
+- viajar amanhã
+_ gostei da camisa</textarea><br>
+    <button id="botao">Mostrar tarefas</button>
+    <h2>Resultado</h2>
+    <div id="saida"></div>
+</body>
+
+</html>

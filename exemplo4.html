@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo 4 - várias linhas</title>
+    <script>
+        window.onload = inicio;
+        let saida;
+
+        function inicio() {
+            let btn = document.getElementById('botao');
+            btn.addEventListener('click', avalia);
+            saida = document.getElementById('saida');
+        }
+
+        function avalia() {
+            let campo = document.getElementById('linha');
+            let texto = campo.value;
+            let linhas = texto.split('\n');
+
+            saida.innerHTML = '';
+
+            linhas.forEach(mostraLinha);
+        }
+
+        function mostraLinha(linha) {
+            if (linha.startsWith('#')) {
+                let conteudo = linha.replace('#', '');
+                saida.innerHTML += '<h1>' + conteudo + '</h1>';
+            } else {
+                saida.innerHTML += '<p>' + linha + '</p>';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <label for="linha">Texto:</label><br>
+    <textarea id="linha" rows="6" cols="50"></textarea><br>
+    <button id="botao">Verificar</button>
+    <div id="saida"></div>
+</body>
+
+</html>

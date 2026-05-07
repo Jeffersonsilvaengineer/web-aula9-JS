@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo 3 - concat</title>
+    <style>
+        #nao,
+        #tem {
+            display: none;
+            font-size: 36px;
+        }
+    </style>
+    <script>
+        window.onload = inicio;
+        let ic_true, ic_false, saida, campo;
+
+        function inicio() {
+            let btn = document.getElementById('botao');
+            btn.addEventListener('click', avalia);
+
+            campo = document.getElementById('linha');
+            campo.addEventListener('input', limpar);
+
+            ic_true = document.getElementById('tem');
+            ic_false = document.getElementById('nao');
+            saida = document.getElementById('saida');
+        }
+
+        function limpar() {
+            ic_true.style.display = 'none';
+            ic_false.style.display = 'none';
+            saida.innerHTML = '';
+        }
+
+        function avalia() {
+            let texto = campo.value;
+            limpar();
+
+            if (texto.startsWith('#')) {
+                ic_true.style.display = 'block';
+                let trocar = texto.replace('#', '<h1>');
+                trocar = trocar.concat('</h1>');
+                saida.innerHTML = trocar;
+                console.log(trocar);
+            } else {
+                ic_false.style.display = 'block';
+                saida.innerHTML = texto;
+            }
+        }
+    </script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <label for="linha">Texto:</label>
+    <input type="text" id="linha"><br>
+    <button id="botao">Verificar</button>
+    <p>
+        <span class="material-symbols-outlined" id="tem">check</span>
+        <span class="material-symbols-outlined" id="nao">close</span>
+    </p>
+    <div id="saida"></div>
+</body>
+
+</html>
